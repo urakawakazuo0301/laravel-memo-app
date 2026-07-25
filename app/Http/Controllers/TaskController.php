@@ -21,7 +21,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view('tasks.create'); //
     }
 
     /**
@@ -29,7 +29,12 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $validated = $request -> validate([ //
+        'title' => 'required|max:255',
+        'body' => 'nullable',
+       ]);
+       Task::create($validated);
+       return redirect()->route('tasks.index');
     }
 
     /**
