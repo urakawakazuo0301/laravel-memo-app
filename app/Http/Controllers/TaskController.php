@@ -12,7 +12,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-       $tasks = Task::all(); //
+       $tasks = Task::all();
        return view('tasks.index', compact('tasks'));
     }
 
@@ -21,7 +21,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create'); //
+        return view('tasks.create');
     }
 
     /**
@@ -29,7 +29,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-       $validated = $request -> validate([ //
+       $validated = $request -> validate([
         'title' => 'required|max:255',
         'body' => 'nullable',
        ]);
@@ -43,7 +43,7 @@ class TaskController extends Controller
     public function show(string $id)
     {
         $task = Task::findOrFail($id);
-        return view('tasks.show', compact('task'));//
+        return view('tasks.show', compact('task'));
     }
 
     /**
@@ -51,7 +51,8 @@ class TaskController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $task = Task::findOrFail($id);
+        return view('tasks.edit', compact('task'));
     }
 
     /**
@@ -59,7 +60,15 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $task = Task::findOrFail($id);
+        
+        $validated = $request -> validate([
+            'title' => 'required|max:255',
+            'body' => 'nullable'
+        ]);
+        
+        $task -> update($validated);
+        return redirect()->route('tasks.show', $task);
     }
 
     /**
