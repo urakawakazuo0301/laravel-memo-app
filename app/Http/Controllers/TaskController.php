@@ -34,7 +34,7 @@ class TaskController extends Controller
         'body' => 'nullable',
        ]);
        Task::create($validated);
-       return redirect()->route('tasks.index');
+       return redirect()->route('tasks.index')->with('success', '作成しました');
     }
 
     /**
@@ -68,7 +68,7 @@ class TaskController extends Controller
         ]);
         
         $task -> update($validated);
-        return redirect()->route('tasks.show', $task);
+        return redirect()->route('tasks.show', $task)->with('success', '更新しました');
     }
 
     /**
@@ -78,6 +78,6 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $task -> delete();
-        return redirect()->route('tasks.index');//
+        return redirect()->route('tasks.index')->with('success', '削除しました');//
     }
 }

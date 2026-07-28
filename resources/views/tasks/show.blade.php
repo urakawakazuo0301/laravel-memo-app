@@ -1,3 +1,7 @@
+@if (session('success'))
+    <p>{{ session('success') }}</p>   
+@endif
+
 <h1>{{ $task->title }}</h1>
 
 <p>{{ $task->body }}</p>

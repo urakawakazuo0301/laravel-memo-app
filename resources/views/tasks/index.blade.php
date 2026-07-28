@@ -1,3 +1,7 @@
+@if (session('success'))
+    <p>{{ session('success') }}</p>   
+@endif
+
 <h1>タスク一覧</h1>
 
 <p>
