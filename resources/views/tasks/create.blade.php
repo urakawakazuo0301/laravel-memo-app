@@ -1,25 +1,31 @@
-<h1>新規タスク</h1>
+@extends('layouts.app')
 
-@if ($errors->any())
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-@endif
+@section('content')
 
-<form action="{{ route('tasks.store') }}" method="post">
-    @csrf
-    
-    <div>
-        <label>タイトル</label>
-        <input type="text" name="title" value="{{ old('title') }}">
-    </div>
+    <h1>新規タスク</h1>
 
-    <div>
-        <label>本文</label>
-        <textarea name="body">{{ old('body') }}</textarea>
-    </div>
+    @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
 
-    <button type="submit">保存</button>
-</form>
+    <form action="{{ route('tasks.store') }}" method="post">
+        @csrf
+        
+        <div>
+            <label>タイトル</label>
+            <input type="text" name="title" value="{{ old('title') }}">
+        </div>
+
+        <div>
+            <label>本文</label>
+            <textarea name="body">{{ old('body') }}</textarea>
+        </div>
+
+        <button type="submit">保存</button>
+    </form>
+
+@endsection

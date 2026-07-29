@@ -1,24 +1,28 @@
-@if ($errors->any())
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-@endif
+@extends('layouts.app')
 
-<form action="{{ route('tasks.update', $task) }}" method="post">
-    @csrf
-    @method('PUT')
+@section('content')
+    @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
 
-    <div>
-        <label>タイトル</label>
-        <input type="text" name="title" value="{{ old('title', $task->title) }}">
-    </div>
+    <form action="{{ route('tasks.update', $task) }}" method="post">
+        @csrf
+        @method('PUT')
 
-    <div>
-        <label>本文</label>
-        <textarea name="body">{{ old('body', $task->body) }}</textarea>
-    </div>
+        <div>
+            <label>タイトル</label>
+            <input type="text" name="title" value="{{ old('title', $task->title) }}">
+        </div>
 
-    <button type="submit">保存</button>
-</form>
+        <div>
+            <label>本文</label>
+            <textarea name="body">{{ old('body', $task->body) }}</textarea>
+        </div>
+
+        <button type="submit">保存</button>
+    </form>
+@endsection

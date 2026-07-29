@@ -1,6 +1,6 @@
-@if (session('success'))
-    <p>{{ session('success') }}</p>   
-@endif
+@extends('layouts.app')
+
+@section('content')
 
 <h1>{{ $task->title }}</h1>
 
@@ -19,3 +19,4 @@
 <p>
     <a href="{{ route('tasks.index') }}">一覧に戻る</a>
 </p>
+@endsection
