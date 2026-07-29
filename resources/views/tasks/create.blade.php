@@ -1,31 +1,39 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            新規タスク
+        </h2>
+    </x-slot>
 
-@section('content')
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    @if ($errors->any())
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
 
-    <h1>新規タスク</h1>
+                    <form action="{{ route('tasks.store') }}" method="post">
+                        @csrf
+                        
+                        <div>
+                            <label>タイトル</label>
+                            <input type="text" name="title" value="{{ old('title') }}">
+                        </div>
 
-    @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+                        <div>
+                            <label>本文</label>
+                            <textarea name="body">{{ old('body') }}</textarea>
+                        </div>
 
-    <form action="{{ route('tasks.store') }}" method="post">
-        @csrf
-        
-        <div>
-            <label>タイトル</label>
-            <input type="text" name="title" value="{{ old('title') }}">
+                        <button type="submit">保存</button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div>
-            <label>本文</label>
-            <textarea name="body">{{ old('body') }}</textarea>
-        </div>
-
-        <button type="submit">保存</button>
-    </form>
-
-@endsection
+    </div>
+</x-app-layout>
