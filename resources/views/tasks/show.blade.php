@@ -10,26 +10,38 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     @if (session('success'))
-                        <p>{{ session('success') }}</p>
+                        <div class="mb-4 text-sm text-green-700 bg-green-50 border border-green-200 rounded-md p-3">
+                            {{ session('success') }}
+                        </div>
                     @endif
 
-                    <h1>{{ $task->title }}</h1>
+                    <div class="mb-4">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">タイトル</h3>
+                            <p class="mt-1 text-lg text-gray-900">{{ $task->title }}</p>
+                        </div>
 
-                    <p>{{ $task->body }}</p>
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-500">本文</h3>
+                            <p class="mt-1 text-gray-900 whitespace-pre-wrap">{{ $task->body }}</p>
+                        </div>
 
-                    <p>
-                        <a href="{{ route('tasks.edit', $task) }}">編集</a>
-                    </p>
-
-                    <form action="{{ route('tasks.destroy', $task) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">削除</button>
-                    </form>
-
-                    <p>
-                        <a href="{{ route('tasks.index') }}">一覧に戻る</a>
-                    </p>
+                        <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
+                            <a href="{{ route('tasks.edit', $task) }}"
+                            class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50">
+                                編集
+                            </a>
+                            <form action="{{ route('tasks.destroy', $task) }}" method="post"
+                                onsubmit="return confirm('削除しますか？');">
+                                @csrf
+                                @method('DELETE')
+                                <x-danger-button>削除</x-danger-button>
+                            </form>
+                            <a href="{{ route('tasks.index') }}" class="text-sm text-gray-600 hover:text-gray-900">
+                                一覧へ戻る
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

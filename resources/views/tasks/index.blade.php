@@ -10,20 +10,27 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     @if (session('success'))
-                        <p>{{ session('success') }}</p>
+                        <div class="mb-4 text-sm text-green-700 bg-green-50 border border-green-200 rounded-md p-3">
+                            {{ session('success') }}
+                        </div>
                     @endif
                     
-                    <p>
-                        <a href="{{ route('tasks.create') }}">新規作成</a>
-                    </p>
+                    <div class="flex justify-end mb-4">
+                        <a href="{{ route('tasks.create') }}"
+                            class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
+                            新規作成
+                        </a>
+                    </div>
 
-                    <ul>
-                        @foreach ($tasks as $task)
-                            <li>
-                                <a href="{{ route('tasks.show', $task) }}">{{ $task->title }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
+                    @forelse ($tasks as $task)
+                        <div class="border-b border-gray-200 py-3">
+                            <a href="{{ route('tasks.show', $task) }}" class="text-indigo-600 hover:underline font-medium">
+                                {{ $task->title }}
+                            </a>
+                        </div>
+                    @empty
+                        <p class="text-gray-500">まだタスクがありません。</p>
+                    @endforelse
                 </div>
             </div>
         </div>
