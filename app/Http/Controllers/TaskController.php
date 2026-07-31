@@ -10,9 +10,9 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-       $tasks = Task::all();
+       $tasks = $request->user()->tasks()->latest()->get();
        return view('tasks.index', compact('tasks'));
     }
 
@@ -33,25 +33,25 @@ class TaskController extends Controller
         'title' => 'required|max:255',
         'body' => 'nullable',
        ]);
-       Task::create($validated);
+       $request->user()->tasks()->create($validated);
        return redirect()->route('tasks.index')->with('success', '作成しました');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
-        $task = Task::findOrFail($id);
+        $task = $request->user()->tasks()->findOrFail($id);
         return view('tasks.show', compact('task'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id)
     {
-        $task = Task::findOrFail($id);
+        $task = $request->user()->tasks()->findOrFail($id);
         return view('tasks.edit', compact('task'));
     }
 
@@ -60,7 +60,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $task = Task::findOrFail($id);
+        $task = $request->user()->tasks()->findOrFail($id);
         
         $validated = $request -> validate([
             'title' => 'required|max:255',
@@ -74,9 +74,9 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        $task = Task::findOrFail($id);
+        $task = $request->user()->tasks()->findOrFail($id);
         $task -> delete();
         return redirect()->route('tasks.index')->with('success', '削除しました');//
     }
