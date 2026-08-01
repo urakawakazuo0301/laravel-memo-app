@@ -7,10 +7,8 @@ Rails での Web アプリ開発経験を活かし、Eloquent / Blade / 認証 /
 
 ## デモ
 
-（公開URLがある場合はここに記載）
-
 ```text
-例: https://xxxx.onrender.com
+準備中
 ```
 
 ローカル起動:
